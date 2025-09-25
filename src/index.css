@@ -1,0 +1,160 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* Custom utilities and overrides from original app */
+.athlete {
+  cursor: grab;
+  transition: background-color 0.2s, opacity 0.2s;
+}
+.athlete:active {
+  cursor: grabbing;
+}
+
+.drop-zone {
+  transition: background-color 0.2s, border-color 0.2s;
+  height: 64px;
+}
+.drop-zone.drag-over {
+  background-color: var(--accent);
+  background-color: color-mix(in oklch, var(--accent) 15%, transparent);
+  border-color: var(--primary);
+}
+.dragging {
+  opacity: 0.5;
+}
+
+.athlete-in-slot {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  white-space: nowrap;
+}
+
+/* Keep athlete chip within the fixed drop-zone height */
+.drop-zone .athlete-in-slot {
+  height: 40px;
+}
+
+/* Truncate long athlete names so slots don't grow in height */
+.athlete-in-slot > span.font-semibold,
+.athlete-in-slot > span.athlete-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1 1 auto;
+  margin-right: 0.5rem;
+}
+
+/* Ensure score badge doesn't shrink */
+.athlete-in-slot > span.font-bold {
+  flex: 0 0 auto;
+  margin-left: auto;
+}
+.remove-athlete {
+  position: static;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  font-weight: bold;
+  color: #fecaca;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease-in-out;
+}
+.athlete-in-slot:hover .remove-athlete {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+.modal-content {
+  background: white;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  width: 90%;
+  max-width: 700px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.event-chip {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 9999px;
+  background-color: var(--accent);
+  background-color: color-mix(in oklch, var(--accent) 20%, white);
+  color: var(--accent-foreground);
+}
+.usage-count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 9999px;
+  background-color: var(--accent);
+  background-color: color-mix(in oklch, var(--accent) 20%, white);
+  color: var(--accent-foreground);
+  font-weight: bold;
+  font-size: 0.875rem;
+}
+.summary-toggle-btn {
+  transition: background-color 0.2s, color 0.2s;
+}
+.summary-toggle-btn.active {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+@media print {
+  body {
+    background-color: white;
+  }
+  header,
+  aside,
+  #manage-roster-btn,
+  .clear-event-btn,
+  .event-specialist-dropdown,
+  .specialist-sort-select,
+  #reset-all-events-btn,
+  #print-btn,
+  #lineup-management {
+    display: none;
+  }
+  main {
+    width: 100% !important;
+  }
+  .drop-zone {
+    border-style: solid !important;
+  }
+  #events-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .athlete-in-slot {
+    background-color: #e5e7eb !important;
+    color: black !important;
+  }
+  .athlete-in-slot .font-bold {
+    background-color: #d1d5db !important;
+    color: black !important;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
