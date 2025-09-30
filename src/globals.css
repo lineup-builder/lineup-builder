@@ -2,105 +2,105 @@
   /* radius */
   --radius: 0.625rem;
 
-  /* base / surfaces (light) */
-  --background: oklch(0.982 0 0); /* neutral-50 */
-  --foreground: oklch(0.262 0 0); /* neutral-900 */
+  /* base / surfaces (light) - USNA themed */
+  --background: #f8f9fa; /* light gray */
+  --foreground: #00205b; /* navy blue text */
 
-  --card: oklch(0.982 0 0);
-  --card-foreground: oklch(0.262 0 0);
+  --card: #ffffff; /* white cards */
+  --card-foreground: #00205b; /* navy text */
 
-  --popover: oklch(0.982 0 0);
-  --popover-foreground: oklch(0.262 0 0);
+  --popover: #ffffff; /* white popovers */
+  --popover-foreground: #00205b; /* navy text */
 
-  /* brand */
-  --primary: oklch(0.299 0.094 263.784); /* navy-700 #142a5c */
-  --primary-foreground: oklch(0.985 0 0); /* near-white */
+  /* brand - USNA colors */
+  --primary: #00205b; /* USNA navy blue */
+  --primary-foreground: #ffffff; /* white text on navy */
 
-  --secondary: oklch(0.727 0.06 90.7); /* updated secondary */
-  --secondary-foreground: oklch(0.173 0.037 258.406); /* navy-900 #061020 */
+  --secondary: #c5b783; /* USNA gold */
+  --secondary-foreground: #00205b; /* navy text on gold */
 
   /* neutrals & accents */
-  --muted: oklch(0.942 0 0); /* neutral-200 */
-  --muted-foreground: oklch(0.428 0 0); /* neutral-700 */
+  --muted: #e9ecef; /* light gray */
+  --muted-foreground: #495057; /* medium gray text */
 
-  --accent: oklch(0.727 0.06 90.7); /* updated gold */
-  --accent-foreground: oklch(0.173 0.037 258.406); /* navy-900 */
+  --accent: #c5b783; /* USNA gold accent */
+  --accent-foreground: #00205b; /* navy text on gold */
 
   /* feedback */
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.985 0 0);
+  --destructive: #dc2626; /* red for errors */
+  --destructive-foreground: #ffffff; /* white text on red */
 
   /* outlines */
-  --border: oklch(0.911 0 0); /* neutral-300 */
-  --input: oklch(0.911 0 0); /* neutral-300 */
-  --ring: oklch(0.727 0.06 90.7); /* updated focus ring */
+  --border: #dee2e6; /* light gray borders */
+  --input: #dee2e6; /* light gray input borders */
+  --ring: #c5b783; /* USNA gold focus ring */
 
-  /* charts (light) */
-  --chart-1: oklch(0.363 0.118 263.704); /* navy-600 */
-  --chart-2: oklch(0.727 0.06 90.7); /* updated gold */
-  --chart-3: oklch(0.428 0.015 248.172); /* neutral-700 (subtle) */
-  --chart-4: oklch(0.434 0.133 262.815); /* navy-500 */
-  --chart-5: oklch(0.727 0.06 90.7); /* updated gold */
+  /* charts (light) - USNA themed */
+  --chart-1: #00205b; /* navy blue */
+  --chart-2: #c5b783; /* USNA gold */
+  --chart-3: #495057; /* medium gray */
+  --chart-4: #1c397b; /* darker navy */
+  --chart-5: #e6b222; /* lighter gold */
 
   /* sidebar (light) */
-  --sidebar: oklch(0.982 0 0); /* neutral-50 */
-  --sidebar-foreground: oklch(0.262 0 0);
-  --sidebar-primary: oklch(0.299 0.094 263.784); /* navy-700 */
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.942 0 0); /* neutral-200 */
-  --sidebar-accent-foreground: oklch(0.262 0 0);
-  --sidebar-border: oklch(0.911 0 0);
-  --sidebar-ring: oklch(0.727 0.06 90.7); /* updated gold */
+  --sidebar: #f8f9fa; /* light gray sidebar */
+  --sidebar-foreground: #00205b; /* navy text */
+  --sidebar-primary: #00205b; /* navy primary */
+  --sidebar-primary-foreground: #ffffff; /* white text */
+  --sidebar-accent: #e9ecef; /* light gray accent */
+  --sidebar-accent-foreground: #00205b; /* navy text */
+  --sidebar-border: #dee2e6; /* light gray border */
+  --sidebar-ring: #c5b783; /* USNA gold ring */
 }
 
 .dark {
-  /* base / surfaces (dark) */
-  --background: oklch(0.173 0.037 258.406); /* navy-900 */
-  --foreground: oklch(0.985 0 0); /* near-white */
+  /* base / surfaces (dark) - USNA dark theme */
+  --background: #061020; /* very dark navy */
+  --foreground: #ffffff; /* white text */
 
-  --card: oklch(0.236 0.068 263.993); /* navy-800 */
-  --card-foreground: oklch(0.985 0 0);
+  --card: #0d1c3e; /* dark navy cards */
+  --card-foreground: #ffffff; /* white text */
 
-  --popover: oklch(0.236 0.068 263.993); /* navy-800 */
-  --popover-foreground: oklch(0.985 0 0);
+  --popover: #0d1c3e; /* dark navy popovers */
+  --popover-foreground: #ffffff; /* white text */
 
-  /* brand */
-  --primary: oklch(0.727 0.06 90.7); /* updated gold */
-  --primary-foreground: oklch(0.173 0.037 258.406); /* navy-900 */
+  /* brand - USNA dark theme */
+  --primary: #c5b783; /* USNA gold as primary */
+  --primary-foreground: #00205b; /* navy text on gold */
 
-  --secondary: oklch(0.363 0.118 263.704); /* navy-600 */
-  --secondary-foreground: oklch(0.985 0 0);
+  --secondary: #1c397b; /* medium navy */
+  --secondary-foreground: #ffffff; /* white text */
 
   /* neutrals & accents */
-  --muted: oklch(0.299 0.094 263.784); /* navy-700 */
-  --muted-foreground: oklch(0.708 0 0); /* soft light neutral */
+  --muted: #142a5c; /* dark navy muted */
+  --muted-foreground: #b5b5b5; /* light gray text */
 
-  --accent: oklch(0.727 0.06 90.7); /* updated gold */
-  --accent-foreground: oklch(0.173 0.037 258.406); /* navy-900 */
+  --accent: #c5b783; /* USNA gold accent */
+  --accent-foreground: #00205b; /* navy text on gold */
 
   /* feedback */
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.985 0 0);
+  --destructive: #ef4444; /* red for errors */
+  --destructive-foreground: #ffffff; /* white text on red */
 
   /* outlines */
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.727 0.06 90.7); /* updated gold */
+  --border: rgba(255, 255, 255, 0.1); /* subtle white borders */
+  --input: rgba(255, 255, 255, 0.15); /* subtle white input borders */
+  --ring: #c5b783; /* USNA gold focus ring */
 
-  /* charts (dark) */
-  --chart-1: oklch(0.727 0.06 90.7); /* updated gold */
-  --chart-2: oklch(0.363 0.118 263.704); /* navy-600 */
-  --chart-3: oklch(0.911 0.007 247.901); /* neutral-300 */
-  --chart-4: oklch(0.434 0.133 262.815); /* navy-500 */
-  --chart-5: oklch(0.727 0.06 90.7); /* updated gold */
+  /* charts (dark) - USNA themed */
+  --chart-1: #c5b783; /* USNA gold */
+  --chart-2: #1c397b; /* medium navy */
+  --chart-3: #b5b5b5; /* light gray */
+  --chart-4: #274c99; /* navy blue */
+  --chart-5: #e6b222; /* lighter gold */
 
-  /* sidebar (dark) */
-  --sidebar: oklch(0.236 0.068 263.993); /* navy-800 */
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.727 0.06 90.7); /* updated gold */
-  --sidebar-primary-foreground: oklch(0.173 0.037 258.406);
-  --sidebar-accent: oklch(0.299 0.094 263.784); /* navy-700 */
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.727 0.06 90.7);
+  /* sidebar (dark) - USNA themed */
+  --sidebar: #0d1c3e; /* dark navy sidebar */
+  --sidebar-foreground: #ffffff; /* white text */
+  --sidebar-primary: #c5b783; /* USNA gold primary */
+  --sidebar-primary-foreground: #00205b; /* navy text */
+  --sidebar-accent: #142a5c; /* dark navy accent */
+  --sidebar-accent-foreground: #ffffff; /* white text */
+  --sidebar-border: rgba(255, 255, 255, 0.1); /* subtle white border */
+  --sidebar-ring: #c5b783; /* USNA gold ring */
 }
