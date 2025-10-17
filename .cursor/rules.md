@@ -177,6 +177,15 @@ When adding new state:
 - Use immutable temp lineup for validation before commit
 - Test: pool→slot, slot→slot, slot→pool scenarios
 
+## Development Workflow
+
+- **Dev Server**: Assume dev server is already running (`pnpm dev`)
+- **No Auto-Restart**: Do not automatically restart or re-run the dev server
+- **No Process Management**: Do not kill, start, or manage dev server processes
+- **Hot Reload**: Changes will be picked up automatically via Vite HMR
+- **Manual Restart**: Only restart dev server if explicitly requested by user
+- **Port Check**: If port 5173 is in use, assume dev server is running - do not interfere
+
 ## Performance Tips
 
 - Lineup mutations: use immutable patterns (`JSON.parse(JSON.stringify(...))`)

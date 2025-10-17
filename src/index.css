@@ -1,11 +1,125 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-/* Custom utilities and overrides from original app */
+@theme {
+  /* ============================================
+     US Naval Academy Color Palette
+     Navy Blue: #13294B (hsl(213 59% 19%))
+     Gold: #F8B739 (hsl(41 93% 60%))
+     ============================================ */
+
+  /* Base USNA Brand Colors */
+  --color-navy-50: hsl(213 59% 96%);
+  --color-navy-100: hsl(213 59% 90%);
+  --color-navy-200: hsl(213 59% 80%);
+  --color-navy-300: hsl(213 59% 65%);
+  --color-navy-400: hsl(213 59% 45%);
+  --color-navy-500: hsl(213 59% 35%);
+  --color-navy-600: hsl(213 59% 19%); /* USNA Navy Blue #13294B */
+  --color-navy-700: hsl(213 59% 15%);
+  --color-navy-800: hsl(213 59% 11%);
+  --color-navy-900: hsl(213 59% 7%);
+  --color-navy-950: hsl(213 59% 4%);
+
+  --color-gold-50: hsl(41 93% 96%);
+  --color-gold-100: hsl(41 93% 90%);
+  --color-gold-200: hsl(41 93% 80%);
+  --color-gold-300: hsl(41 93% 70%);
+  --color-gold-400: hsl(41 93% 60%); /* USNA Gold #F8B739 */
+  --color-gold-500: hsl(41 93% 50%);
+  --color-gold-600: hsl(41 93% 40%);
+  --color-gold-700: hsl(41 93% 30%);
+  --color-gold-800: hsl(41 93% 20%);
+  --color-gold-900: hsl(41 93% 10%);
+
+  /* Neutral palette for UI elements */
+  --color-neutral-50: hsl(210 20% 98%);
+  --color-neutral-100: hsl(210 20% 95%);
+  --color-neutral-200: hsl(210 20% 90%);
+  --color-neutral-300: hsl(210 20% 80%);
+  --color-neutral-400: hsl(210 20% 60%);
+  --color-neutral-500: hsl(210 20% 45%);
+  --color-neutral-600: hsl(210 20% 30%);
+  --color-neutral-700: hsl(210 20% 20%);
+  --color-neutral-800: hsl(210 20% 12%);
+  --color-neutral-900: hsl(210 20% 6%);
+
+  /* Semantic color tokens - Light Mode */
+  --color-background: hsl(0 0% 100%);
+  --color-foreground: var(--color-navy-900);
+
+  --color-primary: var(--color-navy-600);
+  --color-primary-foreground: hsl(0 0% 100%);
+
+  --color-secondary: var(--color-neutral-100);
+  --color-secondary-foreground: var(--color-navy-900);
+
+  --color-accent: var(--color-gold-400);
+  --color-accent-foreground: var(--color-navy-900);
+
+  --color-muted: var(--color-neutral-100);
+  --color-muted-foreground: var(--color-neutral-600);
+
+  --color-destructive: hsl(0 84% 60%);
+  --color-destructive-foreground: hsl(0 0% 100%);
+
+  --color-border: var(--color-neutral-200);
+  --color-input: var(--color-neutral-200);
+  --color-ring: var(--color-navy-500);
+
+  --color-card: hsl(0 0% 100%);
+  --color-card-foreground: var(--color-navy-900);
+
+  --color-popover: hsl(0 0% 100%);
+  --color-popover-foreground: var(--color-navy-900);
+
+  /* Additional semantic tokens */
+  --color-usage-badge: var(--color-navy-600);
+  --color-usage-badge-foreground: hsl(0 0% 100%);
+
+  --radius: 0.5rem;
+}
+
+/* Dark mode color overrides */
+.dark {
+  --color-background: var(--color-navy-950);
+  --color-foreground: var(--color-neutral-50);
+
+  --color-primary: var(--color-navy-400);
+  --color-primary-foreground: var(--color-navy-950);
+
+  --color-secondary: var(--color-navy-800);
+  --color-secondary-foreground: var(--color-neutral-50);
+
+  --color-accent: var(--color-gold-400);
+  --color-accent-foreground: var(--color-navy-950);
+
+  --color-muted: var(--color-navy-800);
+  --color-muted-foreground: var(--color-neutral-400);
+
+  --color-destructive: hsl(0 63% 40%);
+  --color-destructive-foreground: var(--color-neutral-50);
+
+  --color-border: var(--color-navy-700);
+  --color-input: var(--color-navy-700);
+  --color-ring: var(--color-navy-400);
+
+  --color-card: var(--color-navy-900);
+  --color-card-foreground: var(--color-neutral-50);
+
+  --color-popover: var(--color-navy-900);
+  --color-popover-foreground: var(--color-neutral-50);
+
+  --color-usage-badge: var(--color-navy-400);
+  --color-usage-badge-foreground: var(--color-navy-950);
+}
+
+/* Custom utility classes */
 .athlete {
   cursor: grab;
   transition: background-color 0.2s, opacity 0.2s;
 }
+
 .athlete:active {
   cursor: grabbing;
 }
@@ -14,11 +128,12 @@
   transition: background-color 0.2s, border-color 0.2s;
   height: 64px;
 }
+
 .drop-zone.drag-over {
-  background-color: var(--accent);
-  background-color: color-mix(in oklch, var(--accent) 15%, transparent);
-  border-color: var(--primary);
+  background-color: oklch(from var(--color-primary) l c h / 0.1);
+  border-color: var(--color-primary);
 }
+
 .dragging {
   opacity: 0.5;
 }
@@ -31,12 +146,10 @@
   white-space: nowrap;
 }
 
-/* Keep athlete chip within the fixed drop-zone height */
 .drop-zone .athlete-in-slot {
   height: 40px;
 }
 
-/* Truncate long athlete names so slots don't grow in height */
 .athlete-in-slot > span.font-semibold,
 .athlete-in-slot > span.athlete-name {
   overflow: hidden;
@@ -46,21 +159,22 @@
   margin-right: 0.5rem;
 }
 
-/* Ensure score badge doesn't shrink */
 .athlete-in-slot > span.font-bold {
   flex: 0 0 auto;
   margin-left: auto;
 }
+
 .remove-athlete {
   position: static;
   margin-left: 0.5rem;
   cursor: pointer;
   font-weight: bold;
-  color: #fecaca;
+  color: var(--color-destructive);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.2s ease-in-out;
 }
+
 .athlete-in-slot:hover .remove-athlete {
   opacity: 1;
   pointer-events: auto;
@@ -69,14 +183,15 @@
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: oklch(from var(--color-foreground) l c h / 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 50;
 }
+
 .modal-content {
-  background: white;
+  background: var(--color-card);
   padding: 1rem;
   border-radius: 0.75rem;
   width: 90%;
@@ -91,10 +206,8 @@
   font-size: 0.75rem;
   font-weight: 500;
   border-radius: 9999px;
-  background-color: var(--accent);
-  background-color: color-mix(in oklch, var(--accent) 20%, white);
-  color: var(--accent-foreground);
 }
+
 .usage-count {
   display: flex;
   align-items: center;
@@ -102,24 +215,24 @@
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 9999px;
-  background-color: var(--accent);
-  background-color: color-mix(in oklch, var(--accent) 20%, white);
-  color: var(--accent-foreground);
   font-weight: bold;
   font-size: 0.875rem;
 }
+
 .summary-toggle-btn {
   transition: background-color 0.2s, color 0.2s;
 }
+
 .summary-toggle-btn.active {
-  background-color: var(--primary);
-  color: var(--primary-foreground);
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
 }
 
 @media print {
   body {
-    background-color: white;
+    background-color: hsl(0 0% 100%);
   }
+
   header,
   aside,
   #manage-roster-btn,
@@ -131,28 +244,26 @@
   #lineup-management {
     display: none;
   }
+
   main {
     width: 100% !important;
   }
+
   .drop-zone {
     border-style: solid !important;
   }
+
   #events-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  .athlete-in-slot {
-    background-color: #e5e7eb !important;
-    color: black !important;
-  }
-  .athlete-in-slot .font-bold {
-    background-color: #d1d5db !important;
-    color: black !important;
-  }
-}
 
-@layer base {
-  body {
-    background-color: var(--background);
-    color: var(--foreground);
+  .athlete-in-slot {
+    background-color: var(--color-neutral-200) !important;
+    color: var(--color-navy-900) !important;
+  }
+
+  .athlete-in-slot .font-bold {
+    background-color: var(--color-neutral-300) !important;
+    color: var(--color-navy-900) !important;
   }
 }

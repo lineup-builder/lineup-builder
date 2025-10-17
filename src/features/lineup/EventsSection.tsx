@@ -9,6 +9,11 @@ import {
   SelectValue,
 } from "@/components/ui/select.tsx";
 import { Separator } from "@/components/ui/separator.tsx";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip.tsx";
 import { Pencil } from "lucide-react";
 import { AutoShrinkText } from "@/components/AutoShrinkText";
 
@@ -85,13 +90,19 @@ export const EventsSection = () => {
               <CardContent className="p-4">
                 <div className="flex justify-between items-center mb-2">
                   <h3 className="text-xl font-bold text-primary">{ev.name}</h3>
-                  <button
-                    className="clear-event-btn text-xs text-muted-foreground hover:text-destructive font-semibold uppercase"
-                    onClick={() => clearEvent(ev.id)}
-                    title="Clear this event"
-                  >
-                    Clear
-                  </button>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="clear-event-btn text-xs text-muted-foreground hover:text-destructive font-semibold uppercase h-auto py-1"
+                        onClick={() => clearEvent(ev.id)}
+                      >
+                        Clear
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>Clear this event</TooltipContent>
+                  </Tooltip>
                 </div>
                 <div className="mb-3">
                   <div className="flex items-center gap-2 text-xs mb-1">
@@ -199,29 +210,39 @@ export const EventsSection = () => {
                               >
                                 {a ? a.name : ""}
                               </AutoShrinkText>
-                              <button
-                                className="ml-2 p-1 rounded hover:bg-primary/80"
-                                aria-label={`Edit ${a ? a.name : "athlete"}`}
-                                title="Edit athlete"
-                                onMouseDown={(e) => e.stopPropagation()}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  if (a) openProfile(a.id);
-                                }}
-                                onDragStart={(e) => e.stopPropagation()}
-                              >
-                                <Pencil className="size-4" />
-                              </button>
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="ml-2 h-6 w-6 rounded hover:bg-primary/80"
+                                    aria-label={`Edit ${a ? a.name : "athlete"}`}
+                                    onMouseDown={(e) => e.stopPropagation()}
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      if (a) openProfile(a.id);
+                                    }}
+                                    onDragStart={(e) => e.stopPropagation()}
+                                  >
+                                    <Pencil className="size-4" />
+                                  </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>Edit athlete</TooltipContent>
+                              </Tooltip>
                               <span className="font-bold bg-primary/90 text-primary-foreground px-2 py-1 rounded text-sm">
                                 {display}
                               </span>
-                              <span
-                                className="remove-athlete"
-                                title="Remove athlete"
-                                onClick={() => removeFromSlot(ev.id, i)}
-                              >
-                                ×
-                              </span>
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <span
+                                    className="remove-athlete"
+                                    onClick={() => removeFromSlot(ev.id, i)}
+                                  >
+                                    ×
+                                  </span>
+                                </TooltipTrigger>
+                                <TooltipContent>Remove athlete</TooltipContent>
+                              </Tooltip>
                             </div>
                           );
                         })()}
@@ -284,29 +305,39 @@ export const EventsSection = () => {
                             >
                               {a ? a.name : ""}
                             </AutoShrinkText>
-                            <button
-                              className="ml-2 p-1 rounded hover:bg-primary/80"
-                              aria-label={`Edit ${a ? a.name : "athlete"}`}
-                              title="Edit athlete"
-                              onMouseDown={(e) => e.stopPropagation()}
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                if (a) openProfile(a.id);
-                              }}
-                              onDragStart={(e) => e.stopPropagation()}
-                            >
-                              <Pencil className="size-4" />
-                            </button>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  className="ml-2 h-6 w-6 rounded hover:bg-primary/80"
+                                  aria-label={`Edit ${a ? a.name : "athlete"}`}
+                                  onMouseDown={(e) => e.stopPropagation()}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    if (a) openProfile(a.id);
+                                  }}
+                                  onDragStart={(e) => e.stopPropagation()}
+                                >
+                                  <Pencil className="size-4" />
+                                </Button>
+                              </TooltipTrigger>
+                              <TooltipContent>Edit athlete</TooltipContent>
+                            </Tooltip>
                             <span className="font-bold bg-primary/90 text-primary-foreground px-2 py-1 rounded text-sm">
                               {display}
                             </span>
-                            <span
-                              className="remove-athlete"
-                              title="Remove athlete"
-                              onClick={() => removeFromSlot(ev.id, 4)}
-                            >
-                              ×
-                            </span>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <span
+                                  className="remove-athlete"
+                                  onClick={() => removeFromSlot(ev.id, 4)}
+                                >
+                                  ×
+                                </span>
+                              </TooltipTrigger>
+                              <TooltipContent>Remove athlete</TooltipContent>
+                            </Tooltip>
                           </div>
                         );
                       })()}
@@ -368,29 +399,39 @@ export const EventsSection = () => {
                             >
                               {a ? a.name : ""}
                             </AutoShrinkText>
-                            <button
-                              className="ml-2 p-1 rounded hover:bg-primary/80"
-                              aria-label={`Edit ${a ? a.name : "athlete"}`}
-                              title="Edit athlete"
-                              onMouseDown={(e) => e.stopPropagation()}
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                if (a) openProfile(a.id);
-                              }}
-                              onDragStart={(e) => e.stopPropagation()}
-                            >
-                              <Pencil className="size-4" />
-                            </button>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  className="ml-2 h-6 w-6 rounded hover:bg-primary/80"
+                                  aria-label={`Edit ${a ? a.name : "athlete"}`}
+                                  onMouseDown={(e) => e.stopPropagation()}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    if (a) openProfile(a.id);
+                                  }}
+                                  onDragStart={(e) => e.stopPropagation()}
+                                >
+                                  <Pencil className="size-4" />
+                                </Button>
+                              </TooltipTrigger>
+                              <TooltipContent>Edit athlete</TooltipContent>
+                            </Tooltip>
                             <span className="font-bold bg-primary/90 text-primary-foreground px-2 py-1 rounded text-sm">
                               {display}
                             </span>
-                            <span
-                              className="remove-athlete"
-                              title="Remove athlete"
-                              onClick={() => removeFromSlot(ev.id, 5)}
-                            >
-                              ×
-                            </span>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <span
+                                  className="remove-athlete"
+                                  onClick={() => removeFromSlot(ev.id, 5)}
+                                >
+                                  ×
+                                </span>
+                              </TooltipTrigger>
+                              <TooltipContent>Remove athlete</TooltipContent>
+                            </Tooltip>
                           </div>
                         );
                       })()}
