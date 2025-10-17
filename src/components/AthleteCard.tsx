@@ -3,6 +3,11 @@ import type { Athlete } from "@/lib/types/index.ts";
 import { useAppStore } from "@/store/useAppStore";
 import { EventChip } from "@/components/EventChip";
 import { Button } from "@/components/ui/button.tsx";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip.tsx";
 import { Pencil } from "lucide-react";
 
 type AthleteCardProps = {
@@ -30,24 +35,28 @@ export const AthleteCard = ({
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-2">
           <span>{athlete.name}</span>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="p-1 h-7 w-7"
-            aria-label={`Edit ${athlete.name}`}
-            title="Edit athlete"
-            onMouseDown={(e) => e.stopPropagation()}
-            onClick={(e) => {
-              e.stopPropagation();
-              openProfile(athlete.id);
-            }}
-            onDragStart={(e) => e.stopPropagation()}
-          >
-            <Pencil className="size-4" />
-          </Button>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="p-1 h-7 w-7"
+                aria-label={`Edit ${athlete.name}`}
+                onMouseDown={(e) => e.stopPropagation()}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  openProfile(athlete.id);
+                }}
+                onDragStart={(e) => e.stopPropagation()}
+              >
+                <Pencil className="size-4" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Edit athlete</TooltipContent>
+          </Tooltip>
         </div>
         <span
-          className="usage-count"
+          className="usage-count bg-usage-badge text-usage-badge-foreground"
           style={{ display: usageCount > 0 ? "flex" : "none" }}
         >
           {usageCount}

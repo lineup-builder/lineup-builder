@@ -53,6 +53,12 @@ React 19 + TypeScript, Zustand, Tailwind CSS 4, Radix UI, Vite
 - Stable keys in lists
 - Lazy load large components
 
+## Development Workflow
+
+- Dev server assumed running (`pnpm dev`) - do not restart automatically
+- Do not kill, start, or manage dev server processes
+- Use Vite HMR for changes, manual restart only if requested
+
 ## Domain
 
 - Max 6 unique athletes across lineup
