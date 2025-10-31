@@ -7,11 +7,17 @@ type AuthContextType = {
   user: User | null;
   session: Session | null;
   loading: boolean;
-  signIn: (email: string, password: string) => Promise<{
+  signIn: (
+    email: string,
+    password: string
+  ) => Promise<{
     data: { user: User | null; session: Session | null };
     error: AuthError | null;
   }>;
-  signUp: (email: string, password: string) => Promise<{
+  signUp: (
+    email: string,
+    password: string
+  ) => Promise<{
     data: { user: User | null; session: Session | null };
     error: AuthError | null;
   }>;
@@ -34,6 +40,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
 }
 
+// Export hook alongside provider for convenience
+// eslint-disable-next-line react-refresh/only-export-components
 export function useAuthContext() {
   const context = useContext(AuthContext);
   if (context === undefined) {

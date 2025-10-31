@@ -55,4 +55,6 @@ function Button({
   );
 }
 
+// Export variants for reuse in other components
+// eslint-disable-next-line react-refresh/only-export-components
 export { Button, buttonVariants };
