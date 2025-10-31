@@ -11,4 +11,18 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server: {
+    allowedHosts: [
+      // Allow Netlify preview deployments
+      ".netlify.app",
+      "localhost",
+    ],
+  },
+  preview: {
+    allowedHosts: [
+      // Allow Netlify preview deployments
+      ".netlify.app",
+      "localhost",
+    ],
+  },
 });
