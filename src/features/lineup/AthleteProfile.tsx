@@ -35,7 +35,7 @@ export const AthleteProfile = () => {
     if (!athlete) return;
     setName(athlete.name);
     setSelectedEvents({ ...athlete.events });
-  }, [editingAthleteId, athlete]);
+  }, [athlete, editingAthleteId]);
 
   if (!profileOpen || !editingAthleteId || !athlete) return null;
   return (
