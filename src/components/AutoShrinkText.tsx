@@ -27,15 +27,15 @@ export const AutoShrinkText: React.FC<AutoShrinkTextProps> = ({
   }, []);
 
   useLayoutEffect(() => {
-    if (containerRef.current && ro) {
-      ro.observe(containerRef.current);
+    const container = containerRef.current;
+    if (container && ro) {
+      ro.observe(container);
     }
     return () => {
-      if (containerRef.current && ro) {
-        ro.unobserve(containerRef.current);
+      if (container && ro) {
+        ro.unobserve(container);
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ro]);
 
   useLayoutEffect(() => {

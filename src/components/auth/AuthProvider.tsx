@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { createContext, useContext } from "react";
-import type { User, Session } from "@supabase/supabase-js";
+import type { User, Session, AuthError } from "@supabase/supabase-js";
 import { useAuth } from "@/hooks/useAuth";
 
 type AuthContextType = {
@@ -8,16 +8,22 @@ type AuthContextType = {
   session: Session | null;
   loading: boolean;
   signIn: (email: string, password: string) => Promise<{
-    data: any;
-    error: any;
+    data: { user: User | null; session: Session | null };
+    error: AuthError | null;
   }>;
   signUp: (email: string, password: string) => Promise<{
-    data: any;
-    error: any;
+    data: { user: User | null; session: Session | null };
+    error: AuthError | null;
   }>;
-  signInWithGoogle: () => Promise<{ data: any; error: any }>;
-  signOut: () => Promise<{ error: any }>;
-  sendMagicLink: (email: string) => Promise<{ data: any; error: any }>;
+  signInWithGoogle: () => Promise<{
+    data: { url: string | null; provider: string } | null;
+    error: AuthError | null;
+  }>;
+  signOut: () => Promise<{ error: AuthError | null }>;
+  sendMagicLink: (email: string) => Promise<{
+    data: { user: User | null; session: Session | null } | null;
+    error: AuthError | null;
+  }>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
