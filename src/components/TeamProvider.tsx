@@ -1,4 +1,5 @@
-import { createContext, useContext, useEffect, ReactNode } from "react";
+import { createContext, useContext, useEffect } from "react";
+import type { ReactNode } from "react";
 import { useTeam } from "@/hooks/useTeam";
 import { useAppStore } from "@/store/useAppStore";
 

@@ -6,6 +6,8 @@ type TeamInsert = Database["public"]["Tables"]["teams"]["Insert"];
 type TeamUpdate = Database["public"]["Tables"]["teams"]["Update"];
 type TeamMember = Database["public"]["Tables"]["team_members"]["Row"];
 
+export type TeamWithRole = Team & { team_members: { role: string }[] };
+
 export async function getUserTeams() {
   const { data, error } = await supabase
     .from("teams")
@@ -18,7 +20,7 @@ export async function getUserTeams() {
     .order("created_at", { ascending: false });
 
   if (error) throw error;
-  return data as (Team & { team_members: { role: string }[] })[];
+  return data as TeamWithRole[];
 }
 
 export async function getTeam(teamId: string) {
