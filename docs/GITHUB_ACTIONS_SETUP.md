@@ -3,8 +3,9 @@
 ## ✅ What Was Created
 
 The `.github/workflows/ci.yml` file provides three status checks:
+
 1. **`lint`** - Runs ESLint
-2. **`type-check`** - Runs TypeScript type checking  
+2. **`type-check`** - Runs TypeScript type checking
 3. **`build`** - Builds the project
 
 ## 🚀 Next Steps
@@ -20,6 +21,7 @@ git push origin staging
 ### 2. Wait for First Run
 
 After pushing, GitHub Actions will automatically run:
+
 - Go to your repository → **Actions** tab
 - You'll see the workflow running
 - It will create the three status checks: `lint`, `type-check`, `build`
@@ -29,6 +31,7 @@ After pushing, GitHub Actions will automatically run:
 Once the workflow has run at least once, configure branch protection:
 
 **For `main` branch:**
+
 1. Go to: Repository → **Settings** → **Branches**
 2. Find `main` branch rule (or add one)
 3. Under **"Require status checks to pass before merging"**:
@@ -39,6 +42,7 @@ Once the workflow has run at least once, configure branch protection:
      - ✅ **build**
 
 **For `staging` branch:**
+
 1. Same process for `staging` branch
 2. Under **"Require status checks to pass before merging"**:
    - ✅ Require branches to be up to date before merging
@@ -50,6 +54,7 @@ Once the workflow has run at least once, configure branch protection:
 ### 4. Verify It Works
 
 Create a test PR or push to a branch:
+
 - GitHub Actions will run automatically
 - Status checks will appear on the PR
 - All checks must pass before merging (if branch protection is configured)
@@ -57,6 +62,7 @@ Create a test PR or push to a branch:
 ## 🔍 How It Works
 
 **When code is pushed or PR is created:**
+
 1. GitHub Actions triggers automatically
 2. Runs three jobs in parallel:
    - Lint validation
@@ -66,11 +72,13 @@ Create a test PR or push to a branch:
 4. Status checks appear on PRs/branches
 
 **When merging to `main`/`staging`:**
+
 - Branch protection checks if status checks passed
 - If all checks pass → merge allowed
 - If checks fail → merge blocked
 
 **After merge:**
+
 - Netlify automatically deploys (separate from CI)
 - CI = validation, Netlify = deployment
 
@@ -84,10 +92,10 @@ Create a test PR or push to a branch:
 ## 📝 Note
 
 The workflow runs on:
+
 - `main` branch pushes
-- `staging` branch pushes  
+- `staging` branch pushes
 - `integration/supabase` branch pushes
 - PRs targeting these branches
 
 All other branches/PRs will also trigger the workflow.
-
