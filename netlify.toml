@@ -6,18 +6,6 @@
   NODE_VERSION = "20"
   PNPM_VERSION = "10.15.1"
 
-# Production branch (main)
-[[context.production]]
-  branch = "main"
-
-# Staging branch
-[[context.staging]]
-  branch = "staging"
-
-# Preview deployments (all other branches and PRs)
-[[context.deploy-preview]]
-  branch = "*"
-
 # Redirect all routes to index.html for SPA routing
 [[redirects]]
   from = "/*"
