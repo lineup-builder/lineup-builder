@@ -14,11 +14,20 @@ import {
   MAX_ATHLETES_IN_LINEUP,
 } from "@/lib/constants/index.ts";
 import { createEmptyLineup, getUniqueAthletesInEvents } from "@/lib/utils/lineup.ts";
+import { getTeamAthletes, type AthleteWithEvents } from "@/lib/api/athletes";
+import { getTeamLineups, type LineupWithSlots } from "@/lib/api/lineups";
 // storage is handled by zustand persist middleware
 
 type EventMetricKey = keyof EventMetrics; // 'd_score' | 'consistency' | 'avg_score'
 
 export type AppContextValue = {
+  // Team context
+  currentTeamId: string | null;
+  setCurrentTeamId: (teamId: string | null) => void;
+  // Loading and error states
+  isLoading: boolean;
+  error: Error | null;
+  // Data
   events: EventConfig[];
   athletes: Athlete[];
   setAthletes: React.Dispatch<React.SetStateAction<Athlete[]>>;
@@ -47,6 +56,10 @@ export type AppContextValue = {
   newLineup: (title: string) => void;
   deleteActiveLineup: () => void;
   addAthlete: () => void;
+  // Async Supabase operations
+  loadTeamAthletes: (teamId: string) => Promise<void>;
+  loadTeamLineups: (teamId: string) => Promise<void>;
+  syncWithSupabase: (teamId: string) => Promise<void>;
   // helpers
   eventTotalLabelAndValue: (eventId: string) => {
     label: string;
@@ -185,6 +198,13 @@ const initializer: StateCreator<AppContextValue, WithPersist> = (set, get) => {
     },
   };
   return {
+    // Team context
+    currentTeamId: null,
+    setCurrentTeamId: (teamId: string | null) => set({ currentTeamId: teamId }),
+    // Loading and error states
+    isLoading: false,
+    error: null,
+    // Data
     events: initialEvents,
     athletes: [...DEFAULT_ATHLETES],
     savedLineups: initialSaved,
@@ -662,6 +682,126 @@ const initializer: StateCreator<AppContextValue, WithPersist> = (set, get) => {
           ...computeDerived(base),
         } as Partial<AppContextValue>;
       });
+    },
+    // Async Supabase operations
+    loadTeamAthletes: async (teamId: string) => {
+      try {
+        set({ isLoading: true, error: null });
+        const athletesData = await getTeamAthletes(teamId);
+
+        // Transform Supabase athletes to app format
+        const transformedAthletes: Athlete[] = athletesData.map((dbAthlete: AthleteWithEvents) => ({
+          id: dbAthlete.id,
+          name: dbAthlete.name,
+          events: dbAthlete.athlete_events.reduce((acc, athleteEvent) => {
+            acc[athleteEvent.event_abbr] = {
+              d_score: athleteEvent.d_score,
+              consistency: athleteEvent.consistency,
+              avg_score: athleteEvent.avg_score,
+            };
+            return acc;
+          }, {} as Record<string, EventMetrics>),
+        }));
+
+        set((prev: AppContextValue) => {
+          const base = {
+            events: prev.events,
+            athletes: transformedAthletes,
+            savedLineups: prev.savedLineups,
+            activeLineupId: prev.activeLineupId,
+            activeSummaryMetric: prev.activeSummaryMetric,
+          };
+          return {
+            athletes: transformedAthletes,
+            isLoading: false,
+            ...computeDerived(base),
+          } as Partial<AppContextValue>;
+        });
+      } catch (err) {
+        set({
+          error: err instanceof Error ? err : new Error("Failed to load athletes"),
+          isLoading: false
+        });
+        console.error("Error loading team athletes:", err);
+      }
+    },
+    loadTeamLineups: async (teamId: string) => {
+      try {
+        set({ isLoading: true, error: null });
+        const lineupsData = await getTeamLineups(teamId);
+
+        // Transform Supabase lineups to app format
+        const transformedLineups: SavedLineups = lineupsData.reduce((acc, dbLineup: LineupWithSlots) => {
+          const lineup: Lineup = {};
+
+          // Group slots by event
+          dbLineup.lineup_slots.forEach((slot) => {
+            if (!lineup[slot.event_id]) {
+              lineup[slot.event_id] = Array(6).fill(null);
+            }
+            lineup[slot.event_id][slot.slot_index] = slot.athlete_id;
+          });
+
+          acc[dbLineup.id] = {
+            title: dbLineup.title,
+            lineup,
+          };
+          return acc;
+        }, {} as SavedLineups);
+
+        // If no lineups exist, create a default one
+        const finalLineups = Object.keys(transformedLineups).length > 0
+          ? transformedLineups
+          : {
+              [`lineup-${Date.now()}`]: {
+                title: "Untitled Lineup",
+                lineup: createEmptyLineup(get().events),
+              },
+            };
+
+        const firstLineupId = Object.keys(finalLineups)[0] || "";
+
+        set((prev: AppContextValue) => {
+          const base = {
+            events: prev.events,
+            athletes: prev.athletes,
+            savedLineups: finalLineups,
+            activeLineupId: firstLineupId,
+            activeSummaryMetric: prev.activeSummaryMetric,
+          };
+          return {
+            savedLineups: finalLineups,
+            activeLineupId: firstLineupId,
+            isLoading: false,
+            ...computeDerived(base),
+          } as Partial<AppContextValue>;
+        });
+      } catch (err) {
+        set({
+          error: err instanceof Error ? err : new Error("Failed to load lineups"),
+          isLoading: false
+        });
+        console.error("Error loading team lineups:", err);
+      }
+    },
+    syncWithSupabase: async (teamId: string) => {
+      try {
+        set({ isLoading: true, error: null });
+
+        // Load both athletes and lineups in parallel
+        await Promise.all([
+          get().loadTeamAthletes(teamId),
+          get().loadTeamLineups(teamId),
+        ]);
+
+        set({ isLoading: false });
+      } catch (err) {
+        set({
+          error: err instanceof Error ? err : new Error("Failed to sync with Supabase"),
+          isLoading: false
+        });
+        console.error("Error syncing with Supabase:", err);
+      }
     },
   };
 };
